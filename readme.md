@@ -21,7 +21,7 @@ This project is a Python server that allows users to select between two language
 1. Clone the repository.
 
 ```sh
-git clone <repository_url>
+git clone https://github.com/ANURADHAJHA99/python-llm-server.git
 cd PYTHON-LLM-SERVER
 ```
 
@@ -139,3 +139,7 @@ curl --location 'http://localhost:8000/query' --header 'Content-Type: applicatio
 ### 📑 Postman Collection
 
 You can import the provided Postman collection [here](https://dark-resonance-874488.postman.co/workspace/public~d3c714b6-434c-42c6-96b0-ffa97ea17e00/collection/8821057-0252beef-aad2-4b21-8774-6ef98fae99cb?action=share&creator=8821057) to test the endpoints.
+
+### 🔧 Note on Model Selection
+
+Please note that I am using the `InferenceClient` interface to interact with the models. This approach was chosen because downloading and setting up the models locally can be time-consuming.
