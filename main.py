@@ -36,6 +36,8 @@ def select_model():
     Endpoint to select the model for a user.
     """
     data = request.get_json()
+    logger.info(f"Received data for select_model: {data}")
+    
     if not data:
         return jsonify({"error": "No data received"}), 400
     
@@ -51,6 +53,7 @@ def select_model():
     
     # Initialize conversation history for the user
     conversations[user_id] = {"model": model_name, "history": []}
+    logger.info(f"Model {model_name} selected for user {user_id}")
     return jsonify({"message": f"Model {model_name} selected"}), 200
 
 @app.route('/query', methods=['POST'])
@@ -59,6 +62,8 @@ def query():
     Endpoint to query the selected model.
     """
     data = request.get_json()
+    logger.info(f"Received data for query: {data}")
+    
     if not data:
         return jsonify({"error": "No data received"}), 400
     
@@ -86,10 +91,13 @@ def query():
         if a:  # Include assistant's answer if available
             messages.append({"role": "assistant", "content": a})
     messages.append({"role": "user", "content": question})
+    
+    logger.info(f"Messages sent to model: {messages}")
 
     try:
         # Using InferenceClient to get the response
         response = client.chat_completion(messages=messages, max_tokens=500)
+        logger.info(f"Raw response from model: {response}")
 
         # Extracting the answer
         answer = ""
@@ -106,6 +114,7 @@ def query():
 
         # Store the question and answer in the conversation history
         conversations[user_id]["history"].append((question, answer))
+        logger.info(f"Updated conversation history for user {user_id}: {conversations[user_id]['history']}")
 
         return jsonify({"answer": answer}), 200
 
