@@ -32,13 +32,7 @@ python -m venv venv
 source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
 ```
 
-3. Install the dependencies.
-
-```sh
-pip install -r requirements.txt
-```
-
-4. Build and run the Docker container.
+3. Build and run the Docker container.
 
 ```sh
 docker build --no-cache -t python-llm-server .
